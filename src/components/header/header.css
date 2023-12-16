@@ -1,0 +1,27 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+    color: aliceblue;
+    position: relative;
+}
+
+.search-bar{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: 10px;
+}
+.search{
+    width: 20rem;
+    height: 1.5rem;
+    border-radius: 3px;
+    border: 0;
+    background-color: rgba(255, 255, 255, 0.913)
+}
+.search-btn{
+    height: 1.9rem;
+    width: 2rem;
+    border-radius: 3px;
+    background-color:  rgb(239, 237, 237);
+}
