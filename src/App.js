@@ -14,14 +14,14 @@ function App() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getMoviesSearch = async (searchValue) => {
-    const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=${process.env.REACT_APP_API_KEY}`;
+    const url = `https://www.omdbapi.com/?s=${searchValue}&apikey=${process.env.REACT_APP_API_KEY}`;
     axios.get(url).then((post) => {
       dispatch(setMovies(post.data.Search));
     });
   };
   const fisrtLoad = useCallback(
     (searchMovies) => {
-      const url = `http://www.omdbapi.com/?s=${searchMovies}&apikey=${process.env.REACT_APP_API_KEY}`;
+      const url = `https://www.omdbapi.com/?s=${searchMovies}&apikey=${process.env.REACT_APP_API_KEY}`;
       axios
         .get(url)
         .then((post) => {
