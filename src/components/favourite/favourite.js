@@ -9,7 +9,6 @@ function Favourite() {
       {favMovies?.map((ele) => (
         <Card
           key={favMovies.indexOf(ele)}
-          isFav={ele.isFav}
           movie={ele}
           name={ele.Title}
           image={ele.Poster}

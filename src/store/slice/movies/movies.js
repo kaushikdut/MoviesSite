@@ -11,17 +11,28 @@ const moviesSlice = createSlice({
   reducers: {
     setMovies(state, action) {
       if (action.payload) {
-        for (let i = 0; i < action.payload.length; i++) {
-          const exist = state.favourite.find(
-            (movie) => movie.imdbID === action.payload[i].imdbID
-          );
-          if (exist) {
-            action.payload[i].isFav = true;
-          } else {
-            action.payload[i].isFav = false;
-          }
-        }
-        state.movies = [...action.payload];
+        // for (let i = 0; i < action.payload.length; i++) {
+        //   const exist = state.favourite.find(
+        //     (movie) => movie.imdbID === action.payload[i].imdbID
+        //   );
+        //   if (exist) {
+        //     action.payload[i].isFav = true;
+        //   } else {
+        //     action.payload[i].isFav = false;
+        //   }
+        // }
+        // state.movies = [...action.payload];
+
+        const favouriteIds = new Set(
+          state.favourite.map((movie) => movie.imdbID)
+        );
+
+        const updatedMovies = action.payload.map((movie) => ({
+          ...movie,
+          isFav: favouriteIds.has(movie.imdbID),
+        }));
+
+        state.movies = updatedMovies;
       }
     },
     initialLoad(state, action) {
@@ -35,7 +46,7 @@ const moviesSlice = createSlice({
         (movie) => movie.imdbID === action.payload.imdbID
       );
       const exist = state.favourite.find(
-        (movie) => movie.Title === action.payload.Title
+        (movie) => movie.imdbID === action.payload.imdbID
       );
 
       if (fav && !exist) {
@@ -45,14 +56,14 @@ const moviesSlice = createSlice({
       }
     },
     removeFavMovies(state, action) {
+      state.favourite = state.favourite.filter(
+        (movie) => movie.imdbID !== action.payload.imdbID
+      );
       const fav = state.movies.find(
         (movie) => movie.imdbID === action.payload.imdbID
       );
       if (fav) {
         fav.isFav = false;
-        state.favourite = state.favourite.filter(
-          (movie) => movie.imdbID !== action.payload.imdbID
-        );
       }
     },
   },
