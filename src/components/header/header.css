@@ -20,8 +20,9 @@
     background-color: rgba(255, 255, 255, 0.913)
 }
 .search-btn{
-    height: 1.9rem;
+    height: 1.7rem;
     width: 2rem;
     border-radius: 3px;
-    background-color:  rgb(239, 237, 237);
+    background-color:  rgba(255, 255, 255, 0.902);
+    border: 0;
 }

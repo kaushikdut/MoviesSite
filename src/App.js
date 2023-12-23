@@ -1,30 +1,61 @@
+import { useDispatch } from "react-redux";
 import "./App.css";
 import Header from "./components/header/header";
 import Movieslist from "./components/moviesList/movieslist";
-
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { initialLoad, setMovies } from "./store/slice/movies/movies";
+import { Route, Routes } from "react-router-dom";
+import Favourite from "./components/favourite/favourite";
+import axios from "axios";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
-  const [movies, setMovies] = useState([]);
+  const dispatch = useDispatch();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getMoviesSearch = async (searchValue) => {
     const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=${process.env.REACT_APP_API_KEY}`;
-    fetch(url)
-      .then((data) => {
-        return data.json();
-      })
-      .then((post) => setMovies(post.Search));
+    axios.get(url).then((post) => {
+      dispatch(setMovies(post.data.Search));
+    });
   };
+  const fisrtLoad = useCallback(
+    (searchMovies) => {
+      const url = `http://www.omdbapi.com/?s=${searchMovies}&apikey=${process.env.REACT_APP_API_KEY}`;
+      axios
+        .get(url)
+        .then((post) => {
+          dispatch(initialLoad(post.data.Search));
+        })
+        .catch((err) => console.log(err));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
-    getMoviesSearch(searchValue);
+    if (searchValue) {
+      getMoviesSearch(searchValue);
+    }
+  }, [getMoviesSearch, searchValue]);
+
+  useEffect(() => {
+    fisrtLoad("star wars");
+  }, [fisrtLoad]);
+
+  const memoizedSearchValue = useMemo(() => {
+    return searchValue;
   }, [searchValue]);
 
   return (
     <div className="App">
-      <Header searchValue={searchValue} setSearchValue={setSearchValue} />
-      <Movieslist movies={movies} />
+      <Header
+        searchValue={memoizedSearchValue}
+        setSearchValue={setSearchValue}
+      />
+      <Routes>
+        <Route path="/" element={<Movieslist />} />
+        <Route path="/favourite" element={<Favourite />} />
+      </Routes>
     </div>
   );
 }
