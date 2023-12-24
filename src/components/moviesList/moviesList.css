@@ -1,8 +1,9 @@
 .movies-list{
-    width: 100%;
+    min-width: 100vh;
     min-height: 100vh;
     display: flex;
     flex-wrap: wrap;
     justify-content:left;
+    padding: 5px;
     background-color: rgb(0, 0, 0);
 }
