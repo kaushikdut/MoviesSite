@@ -1,5 +1,5 @@
 .movies-list{
-    min-width: 100vh;
+    min-width: 100%;
     min-height: 100vh;
     display: flex;
     flex-wrap: wrap;

@@ -11,18 +11,6 @@ const moviesSlice = createSlice({
   reducers: {
     setMovies(state, action) {
       if (action.payload) {
-        // for (let i = 0; i < action.payload.length; i++) {
-        //   const exist = state.favourite.find(
-        //     (movie) => movie.imdbID === action.payload[i].imdbID
-        //   );
-        //   if (exist) {
-        //     action.payload[i].isFav = true;
-        //   } else {
-        //     action.payload[i].isFav = false;
-        //   }
-        // }
-        // state.movies = [...action.payload];
-
         const favouriteIds = new Set(
           state.favourite.map((movie) => movie.imdbID)
         );

@@ -22,7 +22,7 @@ function Header(props) {
   return (
     <div className="header">
       <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-        <h1>{headerText}</h1>
+        <h1 className="header-text">{headerText}</h1>
       </Link>
       <div className="search-bar">
         <input
